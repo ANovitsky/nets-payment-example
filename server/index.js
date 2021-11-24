@@ -1,7 +1,7 @@
 var express = require("express");
-const url = require("url");
-var http = require("http");
+var https = require("https");
 var cors = require("cors");
+var fiddler = require("./fiddlerProxy");
 var app = express();
 
 const corsOpts = {
@@ -52,7 +52,7 @@ app.get("/createPayment", (req, res, next) => {
   const options = {
     method: "POST",
     hostname: "test.api.dibspayment.eu",
-    port: null,
+    port: 443,
     path: "/v1/payments",
     headers: {
       "content-type": "application/*+json",
@@ -61,9 +61,8 @@ app.get("/createPayment", (req, res, next) => {
   };
 
   try {
-    //const request = http.request(setFiddlerProxy(options), function (response)
-
-    const request = http.request(options, function (response) {
+    //const request = http.request(fiddler.setFiddlerProxy(options), function (response) {
+    const request = https.request(options, function (response) {
       const chunks = [];
 
       response.on("data", function (chunk) {

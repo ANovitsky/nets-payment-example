@@ -1,5 +1,6 @@
-// Use this only for debugging purposes as it introduces a security issue.
+const url = require("url");
 
+// Use this only for debugging purposes as it introduces a security issue.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 //to catch
@@ -31,3 +32,5 @@ const setFiddlerProxy = (options) => {
   options.host = null;
   return options;
 };
+
+module.exports = { setFiddlerProxy };
